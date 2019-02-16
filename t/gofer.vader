@@ -9,3 +9,9 @@ Before (reposition):
 
 Execute (after move first word skipped):
   AssertEqual gofer#get_filtered_line_array(), ['test', 'sentence']
+
+Given vim (vim syntax):
+  include('autoload/gofer.vim')
+
+Execute (test syntax drop):
+  AssertEqual gofer#get_filtered_line_array(), ['autoload/gofer.vim']

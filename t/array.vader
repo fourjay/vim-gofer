@@ -1,0 +1,11 @@
+Given (simple line):
+  README.md test sentence
+
+Execute (finds out):
+  AssertEqual gofer#get_filtered_line_array(), ['README.md', 'test', 'sentence']
+
+Before (reposition):
+  normal! we
+
+Execute (after move first word skipped):
+  AssertEqual gofer#get_filtered_line_array(), ['test', 'sentence']

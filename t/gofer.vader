@@ -15,3 +15,6 @@ Given vim (vim syntax):
 
 Execute (test syntax drop):
   AssertEqual gofer#get_filtered_line_array(), ['autoload/gofer.vim']
+
+Execute (find file):
+  AssertEqual gofer#vim_glob_file(['gofer.vim']), 'autoload/gofer.vim'

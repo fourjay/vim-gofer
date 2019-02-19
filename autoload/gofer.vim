@@ -51,3 +51,30 @@ function! gofer#find_file(filename) abort
         return
     endif
 endfunction
+
+" overloaded file jump
+function! gofer#jump_file() abort
+    let l:save_cursor = []
+    if exists('*getcurpos')
+        let l:save_cursor = getcurpos()
+    else
+        let l:save_cursor = getpos('.')
+    endif
+    let l:words = joe#jump#get_line_array()
+
+    let l:found = gofer#vim_glob_file( l:words )
+    if l:found !=# ''
+        echom 'loose jumping to found file ' . l:found
+        execute 'edit ' . l:found
+        return
+    endif
+    " let l:found = joe#jump#find_word_in_current_file( l:positional_order )
+    " if l:found !=# ''
+    "     echom 'loose jumping to found word ' . l:found
+    "     normal! $
+    "     call search(l:found)
+    "     return
+    " endif
+    echom 'no match found'
+    call setpos('.', l:save_cursor)
+endfunction

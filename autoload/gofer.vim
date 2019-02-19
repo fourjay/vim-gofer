@@ -28,23 +28,26 @@ function! gofer#vim_glob_file(word_list)
     let l:full_list = l:word_list + l:short_word_list
     let l:found_file = ''
     for l:word in l:full_list
-        let l:subword = l:word
-        let l:glob_expression = '**/' . l:subword . '*'
-        " echom 'searching for ' . l:glob_expression
-        let l:files = glob( l:glob_expression, '', 1 )
-        let l:files = filter (l:files , '! isdirectory(v:val)')
-        if len( l:files ) > 0
-            let l:candidate = l:files[0]
-            " if l:candidate =~# l:word
-            if l:word =~# l:candidate
+        let l:candidate = gofer#find_file(l:word)
+        if l:candidate && l:word =~# l:candidate
                 let l:found_file = l:candidate
                 break
             elseif l:candidate =~# l:word . '\..*'
                 let l:found_file = l:candidate
                 break
-            endif
         endif
     endfor
     let &wildignore = l:wildignore
     return l:found_file
+endfunction
+
+function! gofer#find_file(filename) abort
+    let l:glob_expression = '**/' . a:filename . '*'
+    let l:files = glob( l:glob_expression, '', 1 )
+    let l:files = filter (l:files , '! isdirectory(v:val)')
+    if len( l:files ) > 0
+        return l:files[0]
+    else
+        return
+    endif
 endfunction

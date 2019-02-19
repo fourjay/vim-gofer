@@ -18,3 +18,9 @@ Execute (test syntax drop):
 
 Execute (find file):
   AssertEqual gofer#vim_glob_file(['gofer.vim']), 'autoload/gofer.vim'
+
+Before (cd to etc):
+  cd /etc
+
+Execute (find):
+  AssertEqual gofer#find_file('fstab'), 'fstab'

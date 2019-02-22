@@ -15,6 +15,17 @@ function! gofer#get_filtered_line_array() abort
     return l:non_keywords
 endfunction
 
+function! joe#jump#find_word_in_current_file(word_list)
+    let l:found = 0
+    let l:word_list = filter(a:word_list, 'len(v:val) > 3' )
+    for l:word in l:word_list
+        let l:found = search( '\<' . l:word . '\>', 'n' )
+        if l:found != 0
+            return l:word
+        endif
+    endfor
+endfunction
+
 function! gofer#vim_glob_file(word_list)
     let l:wildignore = &wildignore
     set wildignore+=*/.git/*

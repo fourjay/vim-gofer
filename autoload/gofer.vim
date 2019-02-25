@@ -15,7 +15,7 @@ function! gofer#get_filtered_line_array() abort
     return l:non_keywords
 endfunction
 
-function! joe#jump#find_word_in_current_file(word_list)
+function! gofer#find_word_in_current_file(word_list)
     let l:found = 0
     let l:word_list = filter(a:word_list, 'len(v:val) > 3' )
     for l:word in l:word_list
@@ -71,7 +71,7 @@ function! gofer#jump_file() abort
     else
         let l:save_cursor = getpos('.')
     endif
-    let l:words = joe#jump#get_line_array()
+    let l:words = gofer#get_filtered_line_array()
 
     let l:found = gofer#vim_glob_file( l:words )
     if l:found !=# ''

@@ -6,7 +6,7 @@ if exists('did_gofer')
 endif
 let g:did_gofer = '1'
 let s:save_cpo = &cpoptions
-set compatible&vim
+set cpoptions&vim
 
 
 
